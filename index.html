@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Tình Bạn 💕</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #ffd6e7, #d9e8ff);
+        color: #4a3540;
+    }
+
+    .game {
+        width: 90%;
+        max-width: 600px;
+        background: white;
+        padding: 35px;
+        border-radius: 25px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        text-align: center;
+    }
+
+    h1 {
+        color: #ff5c93;
+        margin-top: 0;
+    }
+
+    #question {
+        font-size: 21px;
+        line-height: 1.6;
+        margin: 30px 0;
+    }
+
+    button {
+        display: block;
+        width: 100%;
+        padding: 16px;
+        margin: 12px 0;
+        border: none;
+        border-radius: 15px;
+        background: #ff8fb3;
+        color: white;
+        font-size: 17px;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    button:hover {
+        background: #ff5c93;
+        transform: scale(1.02);
+    }
+
+    #score {
+        color: #777;
+        margin-top: 20px;
+    }
+
+    #result {
+        font-size: 22px;
+        line-height: 1.6;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="game">
+
+    <h1>💕 Tình Bạn 💕</h1>
+
+    <div id="question">
+        Bạn và người bạn thân nhất đang bắt đầu một ngày mới...
+    </div>
+
+    <div id="choices">
+        <button onclick="choose(1)">Bắt đầu chơi 🌷</button>
+    </div>
+
+    <div id="score"></div>
+
+</div>
+
+<script>
+
+const questions = [
+
+    {
+        text: "Bạn thân của bạn hôm nay trông rất buồn. Bạn ấy nói: \"Mình không sao đâu.\" Bạn sẽ làm gì?",
+        a: "Tiếp tục hỏi và ở bên bạn ấy 💕",
+        b: "Thôi, để bạn ấy yên 😶",
+        good: 1
+    },
+
+    {
+        text: "Bạn phát hiện bạn thân đang giấu bạn một chuyện. Bạn sẽ...",
+        a: "Hỏi thẳng bạn ấy 🤔",
+        b: "Chờ đến khi bạn ấy muốn kể 🤍",
+        good: 2
+    },
+
+    {
+        text: "Hai bạn đã hẹn đi chơi nhưng bạn thân lại hủy vào phút cuối.",
+        a: "Hỏi xem có chuyện gì xảy ra 🥺",
+        b: "Giận và không nói chuyện nữa 😤",
+        good: 1
+    },
+
+    {
+        text: "Một người khác nói xấu bạn thân của bạn.",
+        a: "Bảo vệ bạn thân 🛡️",
+        b: "Im lặng vì không muốn dính vào",
+        good: 1
+    },
+
+    {
+        text: "Bạn thân đạt điểm cao hơn bạn trong một bài kiểm tra.",
+        a: "Chúc mừng bạn ấy 🎉",
+        b: "Cảm thấy khó chịu 😒",
+        good: 1
+    },
+
+    {
+        text: "Bạn thân làm mất món đồ mà bạn rất quý.",
+        a: "Bình tĩnh nói chuyện với bạn ấy",
+        b: "Nổi giận ngay lập tức 😡",
+        good: 1
+    },
+
+    {
+        text: "Bạn thân muốn kể một bí mật rất quan trọng.",
+        a: "Lắng nghe và giữ bí mật 🤫",
+        b: "Kể cho một người khác nghe 👀",
+        good: 1
+    },
+
+    {
+        text: "Bạn đang rất bận nhưng bạn thân cần người nói chuyện.",
+        a: "Dành một chút thời gian cho bạn ấy 💗",
+        b: "Nói rằng mình không có thời gian",
+        good: 1
+    },
+
+    {
+        text: "Hai bạn xảy ra một cuộc cãi nhau.",
+        a: "Chủ động xin lỗi và nói chuyện ❤️",
+        b: "Chờ bạn ấy xin lỗi trước",
+        good: 1
+    },
+
+    {
+        text: "Cuối cùng, bạn nhận ra tình bạn này rất quan trọng với mình.",
+        a: "Nói với bạn ấy rằng mình rất trân trọng tình bạn này 💕",
+        b: "Không nói gì vì ngại",
+        good: 1
+    }
+
+];
+
+let current = 0;
+let score = 0;
+
+function choose(answer) {
+
+    if (current === 0 && answer === 1) {
+        current = 0;
+        showQuestion();
+        return;
+    }
+
+    const q = questions[current];
+
+    if (answer === q.good) {
+        score++;
+    }
+
+    current++;
+
+    if (current < questions.length) {
+        showQuestion();
+    } else {
+        showResult();
+    }
+}
+
+function showQuestion() {
+
+    const q = questions[current];
+
+    document.getElementById("question").innerText =
+        "💬 " + q.text;
+
+    document.getElementById("choices").innerHTML = `
+        <button onclick="choose(1)">
+            A. ${q.a}
+        </button>
+
+        <button onclick="choose(2)">
+            B. ${q.b}
+        </button>
+    `;
+
+    document.getElementById("score").innerText =
+        "Tình huống " + (current + 1) + " / " + questions.length;
+}
+
+function showResult() {
+
+    let message = "";
+
+    if (score >= 9) {
+        message = "💖 BẠN THÂN MÃI MÃI!<br><br>Bạn thật sự biết cách trân trọng tình bạn.";
+    } 
+    else if (score >= 6) {
+        message = "😊 TÌNH BẠN RẤT ĐẸP!<br><br>Hai bạn chắc chắn là những người bạn tốt.";
+    } 
+    else if (score >= 4) {
+        message = "😐 CẦN HIỂU NHAU HƠN<br><br>Tình bạn vẫn còn, nhưng hai bạn cần quan tâm nhau hơn.";
+    } 
+    else {
+        message = "💔 TÌNH BẠN XA CÁCH<br><br>Có lẽ bạn nên dành nhiều thời gian hơn cho người bạn của mình.";
+    }
+
+    document.getElementById("question").innerHTML = `
+        <div id="result">
+            ${message}
+            <br><br>
+            Điểm tình bạn: <b>${score}/10</b>
+        </div>
+    `;
+
+    document.getElementById("choices").innerHTML = `
+        <button onclick="location.reload()">
+            🔄 Chơi lại
+        </button>
+    `;
+
+    document.getElementById("score").innerText = "";
+}
+
+</script>
+
+</body>
+</html>
