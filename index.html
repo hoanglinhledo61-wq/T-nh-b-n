@@ -3,74 +3,274 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Tình Bạn 💕</title>
+<title>💗 Tình Bạn - Friendship Game</title>
 
 <style>
-    * {
-        box-sizing: border-box;
-    }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
 
-    body {
-        margin: 0;
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: Arial, sans-serif;
-        background: linear-gradient(135deg, #ffd6e7, #d9e8ff);
-        color: #4a3540;
-    }
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3, #8e9cff);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+}
 
+.game {
+    width: 100%;
+    max-width: 430px;
+    min-height: 720px;
+    background: rgba(20, 20, 45, 0.92);
+    border-radius: 30px;
+    padding: 22px;
+    box-shadow: 0 20px 50px rgba(0,0,0,.35);
+    position: relative;
+    overflow: hidden;
+}
+
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.stats {
+    display: flex;
+    gap: 8px;
+}
+
+.stat {
+    background: rgba(255,255,255,.12);
+    padding: 7px 10px;
+    border-radius: 15px;
+    font-size: 13px;
+}
+
+.profile {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.avatar {
+    width: 100px;
+    height: 100px;
+    margin: auto;
+    border-radius: 50%;
+    background: linear-gradient(135deg,#ff5f9e,#ffcf70);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 55px;
+    box-shadow: 0 0 30px rgba(255,105,180,.5);
+}
+
+.profile h1 {
+    margin-top: 15px;
+    font-size: 27px;
+}
+
+.profile p {
+    color: #c9c9d8;
+    margin-top: 5px;
+}
+
+.progress-box {
+    margin-top: 22px;
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    margin-bottom: 7px;
+    color: #ddd;
+}
+
+.progress {
+    height: 12px;
+    background: rgba(255,255,255,.12);
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg,#ff5fa2,#ffd166);
+    border-radius: 20px;
+    transition: .5s;
+}
+
+.card {
+    margin-top: 25px;
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 23px;
+    padding: 20px;
+}
+
+.question-number {
+    color: #ff9ec5;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.question {
+    font-size: 21px;
+    line-height: 1.4;
+    margin-bottom: 20px;
+}
+
+.answers {
+    display: grid;
+    gap: 11px;
+}
+
+.answer {
+    width: 100%;
+    border: none;
+    padding: 15px;
+    border-radius: 16px;
+    background: rgba(255,255,255,.1);
+    color: white;
+    text-align: left;
+    font-size: 15px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.answer:hover {
+    background: rgba(255,255,255,.2);
+    transform: translateY(-2px);
+}
+
+.answer.correct {
+    background: #20c997;
+}
+
+.answer.wrong {
+    background: #ff4d6d;
+}
+
+button:disabled {
+    cursor: default;
+}
+
+.next {
+    width: 100%;
+    margin-top: 15px;
+    padding: 15px;
+    border: none;
+    border-radius: 17px;
+    background: linear-gradient(135deg,#ff5f9e,#ff8a5b);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    display: none;
+}
+
+.next:hover {
+    transform: scale(1.02);
+}
+
+.message {
+    text-align: center;
+    min-height: 25px;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+.bottom {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 9px;
+    margin-top: 20px;
+}
+
+.bottom button {
+    border: none;
+    padding: 12px 5px;
+    border-radius: 15px;
+    background: rgba(255,255,255,.09);
+    color: white;
+    cursor: pointer;
+}
+
+.bottom button:hover {
+    background: rgba(255,255,255,.17);
+}
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(12,12,30,.96);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 30px;
+    z-index: 5;
+}
+
+.result h2 {
+    font-size: 32px;
+    margin-bottom: 12px;
+}
+
+.result p {
+    color: #ccc;
+    line-height: 1.6;
+}
+
+.restart {
+    margin-top: 20px;
+    border: none;
+    padding: 14px 25px;
+    border-radius: 18px;
+    background: linear-gradient(135deg,#ff5f9e,#ff8a5b);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.heart {
+    position: fixed;
+    animation: fly 1.5s ease-out forwards;
+    pointer-events: none;
+    font-size: 25px;
+}
+
+@keyframes fly {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-180px) scale(1.8);
+        opacity: 0;
+    }
+}
+
+@media(max-height:750px) {
     .game {
-        width: 90%;
-        max-width: 600px;
-        background: white;
-        padding: 35px;
-        border-radius: 25px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-        text-align: center;
+        min-height: auto;
     }
-
-    h1 {
-        color: #ff5c93;
-        margin-top: 0;
-    }
-
-    #question {
-        font-size: 21px;
-        line-height: 1.6;
-        margin: 30px 0;
-    }
-
-    button {
-        display: block;
-        width: 100%;
-        padding: 16px;
-        margin: 12px 0;
-        border: none;
-        border-radius: 15px;
-        background: #ff8fb3;
-        color: white;
-        font-size: 17px;
-        cursor: pointer;
-        transition: 0.2s;
-    }
-
-    button:hover {
-        background: #ff5c93;
-        transform: scale(1.02);
-    }
-
-    #score {
-        color: #777;
-        margin-top: 20px;
-    }
-
-    #result {
-        font-size: 22px;
-        line-height: 1.6;
-    }
+}
 </style>
 </head>
 
@@ -78,17 +278,68 @@
 
 <div class="game">
 
-    <h1>💕 Tình Bạn 💕</h1>
+    <div class="top">
+        <div class="logo">💗 Tình Bạn</div>
 
-    <div id="question">
-        Bạn và người bạn thân nhất đang bắt đầu một ngày mới...
+        <div class="stats">
+            <div class="stat">⭐ <span id="score">0</span></div>
+            <div class="stat">🔥 <span id="streak">0</span></div>
+        </div>
     </div>
 
-    <div id="choices">
-        <button onclick="choose(1)">Bắt đầu chơi 🌷</button>
+    <div class="profile">
+        <div class="avatar">🧸</div>
+        <h1>Friendship Quiz</h1>
+        <p>Test xem tình bạn của chúng ta đến đâu! 😎</p>
     </div>
 
-    <div id="score"></div>
+    <div class="progress-box">
+        <div class="progress-info">
+            <span>💗 Cấp độ <b id="level">1</b></span>
+            <span><span id="xp">0</span>/100 XP</span>
+        </div>
+
+        <div class="progress">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+    </div>
+
+    <div class="card">
+
+        <div class="question-number">
+            CÂU <span id="questionNumber">1</span>
+        </div>
+
+        <div class="question" id="question">
+            Loading...
+        </div>
+
+        <div class="answers" id="answers"></div>
+
+        <div class="message" id="message"></div>
+
+        <button class="next" id="nextBtn" onclick="nextQuestion()">
+            Câu tiếp theo →
+        </button>
+
+    </div>
+
+    <div class="bottom">
+        <button onclick="showAchievement()">🏆 Thành tích</button>
+        <button onclick="resetGame()">🔄 Reset</button>
+        <button onclick="showRules()">❓ Luật chơi</button>
+    </div>
+
+    <div class="overlay" id="overlay">
+        <div class="result">
+            <h2 id="overlayTitle">🎉</h2>
+            <p id="overlayText"></p>
+
+            <button class="restart" onclick="closeOverlay()">
+                Tiếp tục chơi 💗
+            </button>
+        </div>
+    </div>
 
 </div>
 
@@ -96,158 +347,324 @@
 
 const questions = [
 
-    {
-        text: "Bạn thân của bạn hôm nay trông rất buồn. Bạn ấy nói: \"Mình không sao đâu.\" Bạn sẽ làm gì?",
-        a: "Tiếp tục hỏi và ở bên bạn ấy 💕",
-        b: "Thôi, để bạn ấy yên 😶",
-        good: 1
-    },
+{
+    q: "Nếu bạn thân buồn, bạn sẽ làm gì?",
+    answers: [
+        "Ở bên và lắng nghe 💗",
+        "Mặc kệ 😐",
+        "Chọc cho vui 😂",
+        "Đi ngủ 💤"
+    ],
+    correct: 0
+},
 
-    {
-        text: "Bạn phát hiện bạn thân đang giấu bạn một chuyện. Bạn sẽ...",
-        a: "Hỏi thẳng bạn ấy 🤔",
-        b: "Chờ đến khi bạn ấy muốn kể 🤍",
-        good: 2
-    },
+{
+    q: "Điều quan trọng nhất trong tình bạn là gì?",
+    answers: [
+        "Tiền 💰",
+        "Sự tin tưởng 🤝",
+        "Điểm số 📚",
+        "Nổi tiếng ⭐"
+    ],
+    correct: 1
+},
 
-    {
-        text: "Hai bạn đã hẹn đi chơi nhưng bạn thân lại hủy vào phút cuối.",
-        a: "Hỏi xem có chuyện gì xảy ra 🥺",
-        b: "Giận và không nói chuyện nữa 😤",
-        good: 1
-    },
+{
+    q: "Bạn thân rủ đi chơi nhưng bạn đang bận. Bạn sẽ...",
+    answers: [
+        "Nói dối là không bận",
+        "Từ chối luôn",
+        "Giải thích và hẹn dịp khác",
+        "Không trả lời"
+    ],
+    correct: 2
+},
 
-    {
-        text: "Một người khác nói xấu bạn thân của bạn.",
-        a: "Bảo vệ bạn thân 🛡️",
-        b: "Im lặng vì không muốn dính vào",
-        good: 1
-    },
+{
+    q: "Bạn thân kể một bí mật. Bạn nên...",
+    answers: [
+        "Kể cho người khác 🤭",
+        "Đăng story 📱",
+        "Giữ bí mật 🤫",
+        "Quên luôn"
+    ],
+    correct: 2
+},
 
-    {
-        text: "Bạn thân đạt điểm cao hơn bạn trong một bài kiểm tra.",
-        a: "Chúc mừng bạn ấy 🎉",
-        b: "Cảm thấy khó chịu 😒",
-        good: 1
-    },
+{
+    q: "Một người bạn tốt sẽ...",
+    answers: [
+        "Luôn ủng hộ bạn ❤️",
+        "Luôn thắng bạn",
+        "Luôn đồng ý mọi thứ",
+        "Chỉ xuất hiện khi cần"
+    ],
+    correct: 0
+},
 
-    {
-        text: "Bạn thân làm mất món đồ mà bạn rất quý.",
-        a: "Bình tĩnh nói chuyện với bạn ấy",
-        b: "Nổi giận ngay lập tức 😡",
-        good: 1
-    },
+{
+    q: "Nếu hai người bạn cãi nhau, điều tốt nhất là...",
+    answers: [
+        "Block nhau 🚫",
+        "Nói chuyện bình tĩnh",
+        "Đăng status bóng gió",
+        "Không bao giờ nói chuyện nữa"
+    ],
+    correct: 1
+},
 
-    {
-        text: "Bạn thân muốn kể một bí mật rất quan trọng.",
-        a: "Lắng nghe và giữ bí mật 🤫",
-        b: "Kể cho một người khác nghe 👀",
-        good: 1
-    },
+{
+    q: "Bạn thân đạt thành tích tốt. Bạn sẽ...",
+    answers: [
+        "Ghen tị",
+        "Không quan tâm",
+        "Chúc mừng thật lòng 🎉",
+        "Nói rằng mình cũng làm được"
+    ],
+    correct: 2
+},
 
-    {
-        text: "Bạn đang rất bận nhưng bạn thân cần người nói chuyện.",
-        a: "Dành một chút thời gian cho bạn ấy 💗",
-        b: "Nói rằng mình không có thời gian",
-        good: 1
-    },
-
-    {
-        text: "Hai bạn xảy ra một cuộc cãi nhau.",
-        a: "Chủ động xin lỗi và nói chuyện ❤️",
-        b: "Chờ bạn ấy xin lỗi trước",
-        good: 1
-    },
-
-    {
-        text: "Cuối cùng, bạn nhận ra tình bạn này rất quan trọng với mình.",
-        a: "Nói với bạn ấy rằng mình rất trân trọng tình bạn này 💕",
-        b: "Không nói gì vì ngại",
-        good: 1
-    }
+{
+    q: "Tình bạn lâu dài cần...",
+    answers: [
+        "Sự chân thành 💗",
+        "Nhiều tiền",
+        "Nhiều người biết",
+        "Luôn ở cạnh nhau 24/7"
+    ],
+    correct: 0
+}
 
 ];
 
 let current = 0;
-let score = 0;
+let score = Number(localStorage.getItem("friendScore")) || 0;
+let streak = Number(localStorage.getItem("friendStreak")) || 0;
+let xp = Number(localStorage.getItem("friendXP")) || 0;
+let level = Number(localStorage.getItem("friendLevel")) || 1;
 
-function choose(answer) {
+const questionEl = document.getElementById("question");
+const answersEl = document.getElementById("answers");
+const questionNumberEl = document.getElementById("questionNumber");
+const messageEl = document.getElementById("message");
+const nextBtn = document.getElementById("nextBtn");
 
-    if (current === 0 && answer === 1) {
-        current = 0;
-        showQuestion();
-        return;
-    }
+function loadQuestion() {
 
     const q = questions[current];
 
-    if (answer === q.good) {
-        score++;
+    questionNumberEl.textContent = current + 1;
+    questionEl.textContent = q.q;
+
+    answersEl.innerHTML = "";
+    messageEl.textContent = "";
+    nextBtn.style.display = "none";
+
+    q.answers.forEach((answer, index) => {
+
+        const btn = document.createElement("button");
+
+        btn.className = "answer";
+        btn.textContent = answer;
+
+        btn.onclick = () => checkAnswer(index, btn);
+
+        answersEl.appendChild(btn);
+
+    });
+
+}
+
+function checkAnswer(index, button) {
+
+    const q = questions[current];
+
+    const allButtons = document.querySelectorAll(".answer");
+
+    allButtons.forEach(btn => btn.disabled = true);
+
+    if(index === q.correct) {
+
+        button.classList.add("correct");
+
+        score += 10;
+        xp += 25;
+        streak++;
+
+        messageEl.textContent = "🎉 Chính xác! +10 điểm 💗";
+
+        createHearts();
+
+        if(xp >= 100) {
+            xp -= 100;
+            level++;
+
+            setTimeout(() => {
+                alert("🎊 LEVEL UP!\nBạn đã lên cấp " + level + "!");
+            }, 300);
+        }
+
+    } else {
+
+        button.classList.add("wrong");
+        allButtons[q.correct].classList.add("correct");
+
+        streak = 0;
+
+        messageEl.textContent =
+            "😅 Chưa đúng rồi! Đáp án đúng đã được đánh dấu.";
+
     }
+
+    saveGame();
+    updateUI();
+
+    nextBtn.style.display = "block";
+
+}
+
+function nextQuestion() {
 
     current++;
 
-    if (current < questions.length) {
-        showQuestion();
-    } else {
+    if(current >= questions.length) {
         showResult();
+        current = 0;
+        return;
     }
+
+    loadQuestion();
+
 }
 
-function showQuestion() {
+function updateUI() {
 
-    const q = questions[current];
+    document.getElementById("score").textContent = score;
+    document.getElementById("streak").textContent = streak;
+    document.getElementById("level").textContent = level;
+    document.getElementById("xp").textContent = xp;
 
-    document.getElementById("question").innerText =
-        "💬 " + q.text;
+    document.getElementById("progressBar").style.width =
+        xp + "%";
 
-    document.getElementById("choices").innerHTML = `
-        <button onclick="choose(1)">
-            A. ${q.a}
-        </button>
+}
 
-        <button onclick="choose(2)">
-            B. ${q.b}
-        </button>
-    `;
+function saveGame() {
 
-    document.getElementById("score").innerText =
-        "Tình huống " + (current + 1) + " / " + questions.length;
+    localStorage.setItem("friendScore", score);
+    localStorage.setItem("friendStreak", streak);
+    localStorage.setItem("friendXP", xp);
+    localStorage.setItem("friendLevel", level);
+
+}
+
+function createHearts() {
+
+    for(let i = 0; i < 5; i++) {
+
+        const heart = document.createElement("div");
+
+        heart.className = "heart";
+        heart.textContent = ["💗","💕","💖","✨","❤️"][i];
+
+        heart.style.left =
+            (35 + Math.random() * 30) + "%";
+
+        heart.style.top =
+            (45 + Math.random() * 15) + "%";
+
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 1500);
+
+    }
+
 }
 
 function showResult() {
 
-    let message = "";
+    document.getElementById("overlayTitle").textContent =
+        "🎉 Hoàn thành!";
 
-    if (score >= 9) {
-        message = "💖 BẠN THÂN MÃI MÃI!<br><br>Bạn thật sự biết cách trân trọng tình bạn.";
-    } 
-    else if (score >= 6) {
-        message = "😊 TÌNH BẠN RẤT ĐẸP!<br><br>Hai bạn chắc chắn là những người bạn tốt.";
-    } 
-    else if (score >= 4) {
-        message = "😐 CẦN HIỂU NHAU HƠN<br><br>Tình bạn vẫn còn, nhưng hai bạn cần quan tâm nhau hơn.";
-    } 
-    else {
-        message = "💔 TÌNH BẠN XA CÁCH<br><br>Có lẽ bạn nên dành nhiều thời gian hơn cho người bạn của mình.";
+    document.getElementById("overlayText").innerHTML =
+        "Bạn đã hoàn thành vòng chơi!<br><br>" +
+        "⭐ Điểm: <b>" + score + "</b><br>" +
+        "🔥 Streak: <b>" + streak + "</b><br>" +
+        "💗 Level: <b>" + level + "</b>";
+
+    document.getElementById("overlay").style.display =
+        "flex";
+
+}
+
+function showAchievement() {
+
+    let text = "";
+
+    if(score >= 100)
+        text += "🏆 Cao thủ tình bạn<br><br>";
+
+    if(level >= 3)
+        text += "⭐ Bạn đã đạt Level 3<br><br>";
+
+    if(streak >= 5)
+        text += "🔥 Streak Master<br><br>";
+
+    if(text === "")
+        text = "🔒 Chưa có thành tích nào.<br><br>Chơi thêm để mở khóa!";
+
+    document.getElementById("overlayTitle").textContent =
+        "🏆 Thành tích";
+
+    document.getElementById("overlayText").innerHTML = text;
+
+    document.getElementById("overlay").style.display =
+        "flex";
+
+}
+
+function showRules() {
+
+    document.getElementById("overlayTitle").textContent =
+        "❓ Luật chơi";
+
+    document.getElementById("overlayText").innerHTML =
+        "Mỗi câu trả lời đúng nhận <b>10 điểm</b> và <b>25 XP</b>.<br><br>" +
+        "Trả lời đúng liên tiếp để giữ 🔥 streak.<br><br>" +
+        "Đủ 100 XP sẽ lên cấp! ⭐";
+
+    document.getElementById("overlay").style.display =
+        "flex";
+
+}
+
+function closeOverlay() {
+
+    document.getElementById("overlay").style.display =
+        "none";
+
+}
+
+function resetGame() {
+
+    if(confirm("Bạn có chắc muốn xóa toàn bộ tiến trình không?")) {
+
+        score = 0;
+        streak = 0;
+        xp = 0;
+        level = 1;
+        current = 0;
+
+        saveGame();
+        updateUI();
+        loadQuestion();
+
     }
 
-    document.getElementById("question").innerHTML = `
-        <div id="result">
-            ${message}
-            <br><br>
-            Điểm tình bạn: <b>${score}/10</b>
-        </div>
-    `;
-
-    document.getElementById("choices").innerHTML = `
-        <button onclick="location.reload()">
-            🔄 Chơi lại
-        </button>
-    `;
-
-    document.getElementById("score").innerText = "";
 }
+
+updateUI();
+loadQuestion();
 
 </script>
 
